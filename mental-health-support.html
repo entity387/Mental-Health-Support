@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Are Not Alone — Global Mental Health Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:rgba(255,255,255,0.08);--accent:#7ee8a2;--accent2:#56cfaf;--text:#e6edf3;--muted:#8b949e;--crisis:#ff7b7b;--warm:#ffd166}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.12;animation:drift 20s ease-in-out infinite alternate}
+.orb-1{width:600px;height:600px;background:#7ee8a2;top:-200px;left:-150px}
+.orb-2{width:500px;height:500px;background:#56cfaf;bottom:-100px;right:-100px;animation-delay:-7s}
+.orb-3{width:300px;height:300px;background:#ffd166;top:40%;left:50%;animation-delay:-13s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.08)}}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 40px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(126,232,162,.1);border:1px solid rgba(126,232,162,.25);border-radius:100px;padding:6px 16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:32px;animation:fadeUp .8s ease both}
+.badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+h1{font-family:'Fraunces',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:1.05;letter-spacing:-.02em;animation:fadeUp .9s .1s ease both}
+h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{margin-top:20px;font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:560px;line-height:1.7;animation:fadeUp .9s .2s ease both}
+.scroll-cta{margin-top:52px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;animation:fadeUp .9s .4s ease both}
+.scroll-arrow{width:1px;height:48px;background:linear-gradient(to bottom,var(--accent),transparent);animation:grow 2s ease infinite}
+@keyframes grow{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.5);opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 24px 100px}
+.section-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.selector-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px;margin-bottom:48px}
+.selector-card h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;margin-bottom:8px}
+.selector-card p{color:var(--muted);font-size:.95rem;margin-bottom:28px;line-height:1.6}
+.controls-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.controls-row{grid-template-columns:1fr}}
+.select-wrap{position:relative}
+.select-wrap label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.select-wrap select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;padding:14px 44px 14px 16px;appearance:none;cursor:pointer;transition:border-color .2s;outline:none}
+.select-wrap select:focus{border-color:var(--accent)}
+.select-wrap::after{content:'↓';position:absolute;right:16px;bottom:14px;color:var(--muted);pointer-events:none;font-size:14px}
+.country-header{display:flex;align-items:center;gap:20px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.country-flag{font-size:3.5rem;line-height:1}
+.country-name{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300}
+.country-name span{color:var(--muted);font-size:.9rem;font-family:'DM Sans',sans-serif;display:block;margin-top:2px}
+.crisis-banner{background:rgba(255,123,123,.08);border:1px solid rgba(255,123,123,.3);border-radius:16px;padding:20px 24px;margin-bottom:32px;display:flex;align-items:flex-start;gap:16px}
+.crisis-icon{font-size:1.5rem;flex-shrink:0}
+.crisis-banner h3{color:var(--crisis);font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.crisis-banner p{color:var(--muted);font-size:.88rem;line-height:1.6}
+.crisis-numbers{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.crisis-num{background:rgba(255,123,123,.12);border:1px solid rgba(255,123,123,.2);border-radius:8px;padding:8px 14px;font-size:.9rem;font-weight:500}
+.crisis-num strong{color:var(--crisis);display:block;font-size:1.05rem}
+.crisis-num span{color:var(--muted);font-size:.78rem}
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:32px}
+.resource-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+.resource-card:hover{border-color:rgba(126,232,162,.3);transform:translateY(-2px)}
+.resource-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .2s}
+.resource-card:hover::before{opacity:1}
+.resource-type{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:12px}
+.type-hotline{background:rgba(126,232,162,.1);color:var(--accent);border:1px solid rgba(126,232,162,.2)}
+.type-chat{background:rgba(86,207,175,.1);color:var(--accent2);border:1px solid rgba(86,207,175,.2)}
+.type-text{background:rgba(255,209,102,.1);color:var(--warm);border:1px solid rgba(255,209,102,.2)}
+.type-online{background:rgba(139,148,158,.1);color:var(--muted);border:1px solid rgba(139,148,158,.2)}
+.resource-card h4{font-size:1rem;font-weight:500;margin-bottom:6px}
+.resource-card p{color:var(--muted);font-size:.85rem;line-height:1.6;margin-bottom:14px}
+.resource-contact{font-size:.95rem;font-weight:500;color:var(--accent);word-break:break-all}
+.resource-hours{font-size:.78rem;color:var(--muted);margin-top:4px}
+footer{position:relative;z-index:1;text-align:center;padding:40px 24px;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;line-height:1.8}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+<section class="hero">
+  <div class="badge"><span class="badge-dot"></span> Global Mental Health Resources</div>
+  <h1>You Are<br><em>Not Alone</em></h1>
+  <p class="hero-sub">No matter where you are in the world, help is available. Select your country to find local mental health support lines, crisis services, and resources.</p>
+  <div class="scroll-cta"><span>Find support</span><div class="scroll-arrow"></div></div>
+</section>
+<main class="main">
+  <div class="selector-card">
+    <div class="section-label">Step 1</div>
+    <h2>Where are you located?</h2>
+    <p>Choose your country and preferred language. The <strong style="color:var(--crisis)">crisis message</strong> will appear in your chosen language — all other content stays in English.</p>
+    <div class="controls-row">
+      <div class="select-wrap">
+        <label>Country</label>
+        <select id="countrySelect" onchange="showResources()">
+          <option value="">— Select your country —</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <label>Language (crisis message only)</label>
+        <select id="langSelect" onchange="showResources()">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="pt">Português</option>
+          <option value="ar">العربية</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="hi">हिन्दी</option>
+          <option value="ru">Русский</option>
+          <option value="nl">Nederlands</option>
+          <option value="it">Italiano</option>
+          <option value="pl">Polski</option>
+          <option value="tr">Türkçe</option>
+          <option value="sv">Svenska</option>
+          <option value="no">Norsk</option>
+          <option value="da">Dansk</option>
+          <option value="fi">Suomi</option>
+          <option value="el">Ελληνικά</option>
+          <option value="he">עברית</option>
+          <option value="id">Bahasa Indonesia</option>
+          <option value="ms">Bahasa Melayu</option>
+          <option value="th">ภาษาไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="uk">Українська</option>
+          <option value="ro">Română</option>
+          <option value="hu">Magyar</option>
+          <option value="cs">Čeština</option>
+          <option value="sk">Slovenčina</option>
+          <option value="bg">Български</option>
+          <option value="hr">Hrvatski</option>
+          <option value="sr">Srpski</option>
+          <option value="lt">Lietuvių</option>
+          <option value="lv">Latviešu</option>
+          <option value="et">Eesti</option>
+          <option value="sw">Kiswahili</option>
+          <option value="af">Afrikaans</option>
+          <option value="bn">বাংলা</option>
+          <option value="ur">اردو</option>
+          <option value="fa">فارسی</option>
+          <option value="ta">தமிழ்</option>
+          <option value="tl">Filipino</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div id="results"></div>
+</main>
+<footer>
+  <p>This site provides information only and is not a substitute for professional medical advice.<br>
+  If you are in immediate danger, call your local emergency services (000 · 911 · 999 · 112).</p>
+  <p style="margin-top:10px;">Missing a resource? <a href="#">Suggest an update</a></p>
+</footer>
+<script>
+const crisisText={
+en:{title:"If you're in crisis right now",body:"These lines are free and confidential. You don't need to be suicidal to call — anyone feeling overwhelmed, anxious, or alone can reach out."},
+es:{title:"Si estás en crisis ahora mismo",body:"Estas líneas son gratuitas y confidenciales. No necesitas estar en peligro para llamar — cualquiera que se sienta agobiado, ansioso o solo puede comunicarse."},
+fr:{title:"Si vous êtes en crise en ce moment",body:"Ces lignes sont gratuites et confidentielles. Vous n'avez pas besoin d'être suicidaire pour appeler — toute personne qui se sent dépassée, anxieuse ou seule peut appeler."},
+de:{title:"Wenn Sie gerade in einer Krise sind",body:"Diese Leitungen sind kostenlos und vertraulich. Sie müssen nicht suizidgefährdet sein — jeder, der sich überfordert, ängstlich oder allein fühlt, kann sich melden."},
+pt:{title:"Se você está em crise agora",body:"Estas linhas são gratuitas e confidenciais. Você não precisa estar suicida para ligar — qualquer pessoa que se sinta sobrecarregada, ansiosa ou sozinha pode entrar em contato."},
+ar:{title:"إذا كنت في أزمة الآن",body:"هذه الخطوط مجانية وسرية. لا تحتاج إلى أن تكون انتحاريًا للاتصال — يمكن لأي شخص يشعر بالإرهاق أو القلق أو الوحدة التواصل."},
+zh:{title:"如果您正处于危机中",body:"这些热线免费且保密。您不需要有自杀念头才能拨打 — 任何感到不知所措、焦虑或孤独的人都可以联系。"},
+ja:{title:"今すぐ危機的状況にある場合",body:"これらの回線は無料で秘密が守られます。自殺念慮がなくても電話できます — 圧倒されている、不安、孤独を感じている人も気軽にご連絡ください。"},
+ko:{title:"지금 위기 상황이라면",body:"이 전화는 무료이며 비밀이 보장됩니다. 자살 충동이 없어도 전화할 수 있습니다 — 압도감, 불안, 외로움을 느끼는 누구나 연락할 수 있습니다."},
+hi:{title:"अगर आप अभी संकट में हैं",body:"ये लाइनें मुफ्त और गोपनीय हैं। आत्महत्या के विचार न हों तब भी कॉल कर सकते हैं — जो भी अभिभूत, चिंतित या अकेला महसूस करे वो मदद मांग सकता है।"},
+ru:{title:"Если вы в кризисе прямо сейчас",body:"Эти линии бесплатны и конфиденциальны. Звонить можно даже без суицидальных мыслей — любой, кто чувствует себя подавленным, тревожным или одиноким, может обратиться."},
+nl:{title:"Als u nu in crisis bent",body:"Deze lijnen zijn gratis en vertrouwelijk. U hoeft niet suïcidaal te zijn om te bellen — iedereen die zich overweldigd, angstig of alleen voelt, kan contact opnemen."},
+it:{title:"Se sei in crisi adesso",body:"Queste linee sono gratuite e riservate. Non devi essere suicida per chiamare — chiunque si senta sopraffatto, ansioso o solo può contattarci."},
+pl:{title:"Jeśli jesteś teraz w kryzysie",body:"Linie te są bezpłatne i poufne. Nie musisz być samobójczy, żeby zadzwonić — każdy, kto czuje się przytłoczony, niespokojny lub samotny, może się zgłosić."},
+tr:{title:"Şu anda kriz içindeyseniz",body:"Bu hatlar ücretsiz ve gizlidir. Aramak için intihar eğiliminizin olması gerekmez — bunalmış, endişeli veya yalnız hisseden herkes ulaşabilir."},
+sv:{title:"Om du befinner dig i kris just nu",body:"Dessa linjer är gratis och konfidentiella. Du behöver inte vara självmordsbenägen för att ringa — vem som helst som känner sig överväldigad, orolig eller ensam kan höra av sig."},
+no:{title:"Hvis du er i krise akkurat nå",body:"Disse linjene er gratis og konfidensielle. Du trenger ikke å være selvmordstruet for å ringe — alle som føler seg overveldet, engstelige eller alene kan ta kontakt."},
+da:{title:"Hvis du er i krise lige nu",body:"Disse linjer er gratis og fortrolige. Du behøver ikke at være selvmordstruet for at ringe — alle, der føler sig overvældet, ængstelige eller ensomme, kan kontakte os."},
+fi:{title:"Jos olet kriisissä juuri nyt",body:"Nämä linjat ovat maksuttomia ja luottamuksellisia. Sinun ei tarvitse olla itsemurha-altis soittaaksesi — kuka tahansa, joka tuntee itsensä ylivoimaiseksi, ahdistuneeksi tai yksinäiseksi, voi ottaa yhteyttä."},
+el:{title:"Αν βρίσκεστε σε κρίση τώρα",body:"Αυτές οι γραμμές είναι δωρεάν και εμπιστευτικές. Δεν χρειάζεται να έχετε αυτοκτονικές σκέψεις για να καλέσετε — οποιοσδήποτε νιώθει συγκλονισμένος, αγχωμένος ή μόνος μπορεί να επικοινωνήσει."},
+he:{title:"אם אתה במשבר עכשיו",body:"קווים אלה חינמיים וסודיים. אינך צריך להיות אובדני כדי להתקשר — כל מי שמרגיש מוצף, חרד או בודד יכול לפנות."},
+id:{title:"Jika Anda sedang dalam krisis sekarang",body:"Saluran ini gratis dan rahasia. Anda tidak perlu memiliki pikiran bunuh diri untuk menelepon — siapa pun yang merasa kewalahan, cemas, atau kesepian bisa menghubungi."},
+ms:{title:"Jika anda dalam krisis sekarang",body:"Talian ini percuma dan sulit. Anda tidak perlu berasa ingin membunuh diri untuk menghubungi — sesiapa yang berasa terbeban, cemas atau keseorangan boleh menghubungi."},
+th:{title:"หากคุณกำลังอยู่ในวิกฤตตอนนี้",body:"สายด่วนเหล่านี้ฟรีและเป็นความลับ คุณไม่จำเป็นต้องมีความคิดฆ่าตัวตายเพื่อโทร — ทุกคนที่รู้สึกหนักใจ วิตกกังวล หรือโดดเดี่ยวสามารถติดต่อได้"},
+vi:{title:"Nếu bạn đang trong khủng hoảng",body:"Các đường dây này miễn phí và bảo mật. Bạn không cần phải có ý định tự tử để gọi — bất kỳ ai cảm thấy choáng ngợp, lo lắng hoặc cô đơn đều có thể liên hệ."},
+uk:{title:"Якщо ви зараз у кризі",body:"Ці лінії безкоштовні та конфіденційні. Вам не потрібно мати суїцидальні думки — будь-хто, хто відчуває себе пригніченим, тривожним або самотнім, може звернутися."},
+ro:{title:"Dacă ești în criză acum",body:"Aceste linii sunt gratuite și confidențiale. Nu trebuie să ai gânduri sinucigașe pentru a suna — oricine se simte copleșit, anxios sau singur poate contacta."},
+hu:{title:"Ha most válságban van",body:"Ezek a vonalak ingyenesek és bizalmasak. Nem kell öngyilkossági gondolatoknak lennie, hogy hívjon — mindenki, aki túlterheltnek, szorongónak vagy magányosnak érzi magát, fordulhat segítségért."},
+cs:{title:"Pokud jste nyní v krizi",body:"Tyto linky jsou zdarma a důvěrné. Nemusíte mít sebevražedné myšlenky, abyste zavolali — kdokoli, kdo se cítí přetížen, úzkostný nebo osamělý, může kontaktovat."},
+sk:{title:"Ak ste teraz v kríze",body:"Tieto linky sú bezplatné a dôverné. Nemusíte mať samovražedné myšlienky, aby ste zavolali — ktokoľvek, kto sa cíti preťažený, úzkostný alebo osamelý, môže kontaktovať."},
+bg:{title:"Ако сте в криза в момента",body:"Тези линии са безплатни и поверителни. Не е нужно да имате суицидни мисли, за да позвъните — всеки, който се чувства претоварен, тревожен или самотен, може да се свърже."},
+hr:{title:"Ako ste sada u krizi",body:"Ove linije su besplatne i povjerljive. Ne morate imati suicidalne misli da biste nazvali — svtko tko se osjeća preplavljeno, tjeskobno ili usamljeno može se javiti."},
+sr:{title:"Ако сте тренутно у кризи",body:"Ове линије су бесплатне и поверљиве. Не морате имати самоубилачке мисли да бисте позвали — свако ко се осећа преплављено, анксиозно или усамљено може да се јави."},
+lt:{title:"Jei šiuo metu esate krizėje",body:"Šios linijos yra nemokamos ir konfidencialios. Jums nereikia turėti savižudiškų minčių, kad paskambintumėte — bet kas, kas jaučiasi priblokštas, nerimas ar vienišas, gali kreiptis."},
+lv:{title:"Ja jūs šobrīd atrodaties krīzē",body:"Šīs līnijas ir bezmaksas un konfidenciālas. Jums nav jābūt pašnāvnieciskām domām, lai zvanītu — ikviens, kurš jūtas pārslogots, nemierīgs vai vientuļš, var sazināties."},
+et:{title:"Kui olete praegu kriisis",body:"Need liinid on tasuta ja konfidentsiaalsed. Enesetapumõtete puudumine ei ole helistamiseks vajalik — igaüks, kes tunneb end ülekoormatuna, ärevana või üksikuna, võib pöörduda."},
+sw:{title:"Ikiwa uko katika hali ya dharura sasa",body:"Simu hizi ni za bure na za siri. Huhitaji kuwa na mawazo ya kujiua kupigia simu — mtu yeyote anayehisi amezidiwa, ana wasiwasi, au peke yake anaweza kuwasiliana."},
+af:{title:"As u tans in 'n krisis is",body:"Hierdie lyne is gratis en vertroulik. U hoef nie selfmoordgedagtes te hê om te skakel nie — enigiemand wat oorweldig, angstig of alleen voel, kan kontak maak."},
+bn:{title:"যদি আপনি এখন সংকটে আছেন",body:"এই লাইনগুলো বিনামূল্যে এবং গোপনীয়। কল করার জন্য আত্মহত্যার চিন্তা থাকা দরকার নেই — যে কেউ অভিভূত, উদ্বিগ্ন বা একা অনুভব করছেন তিনি যোগাযোগ করতে পারেন।"},
+ur:{title:"اگر آپ ابھی بحران میں ہیں",body:"یہ لائنیں مفت اور خفیہ ہیں۔ کال کرنے کے لیے خودکشی کے خیالات ضروری نہیں — کوئی بھی جو مغلوب، فکرمند یا تنہا محسوس کرے رابطہ کر سکتا ہے۔"},
+fa:{title:"اگر اکنون در بحران هستید",body:"این خطوط رایگان و محرمانه هستند. برای تماس نیازی به داشتن افکار خودکشی ندارید — هر کسی که احساس غرق شدن، اضطراب یا تنهایی می‌کند می‌تواند تماس بگیرد."},
+ta:{title:"நீங்கள் இப்போது நெருக்கடியில் இருந்தால்",body:"இந்த லைன்கள் இலவசமாகவும் ரகசியமாகவும் உள்ளன. தொடர்பு கொள்ள தற்கொலை எண்ணங்கள் இருக்க வேண்டியதில்லை — அதிகமாக உணர்பவர், கவலைப்படுபவர் அல்லது தனிமையாக இருப்பவர் தொடர்பு கொள்ளலாம்."},
+tl:{title:"Kung nasa krisis ka ngayon",body:"Ang mga linya na ito ay libre at kumpidensyal. Hindi mo kailangang may saloobin ng pagpapakamatay para tumawag — sinumang nakakaramdam ng pagka-overwhelm, pagkabalisa, o kalungkutan ay maaaring makipag-ugnayan."}
+};
+
+const countries=[
+{code:"AF",name:"Afghanistan",flag:"🇦🇫",crisis:[{name:"Min. of Public Health",number:"020 220 0450",hours:"Office hours"}],resources:[{name:"Ministry of Public Health",type:"hotline",desc:"National mental health support through Afghan public health.",contact:"020 220 0450",hours:"Office hours"}]},
+{code:"AL",name:"Albania",flag:"🇦🇱",crisis:[{name:"Lifeline Albania",number:"0800 4040",hours:"24/7"}],resources:[{name:"Lifeline Albania",type:"hotline",desc:"Free crisis support line.",contact:"0800 4040",hours:"24/7"}]},
+{code:"DZ",name:"Algeria",flag:"🇩🇿",crisis:[{name:"SAMU Social",number:"3033",hours:"24/7"}],resources:[{name:"SAMU Social Algeria",type:"hotline",desc:"Crisis and social support.",contact:"3033",hours:"24/7"}]},
+{code:"AR",name:"Argentina",flag:"🇦🇷",crisis:[{name:"CAS",number:"135",hours:"24/7"}],resources:[{name:"Centro de Asistencia al Suicida",type:"hotline",desc:"Free crisis and suicide prevention support.",contact:"135",hours:"24/7"},{name:"Línea de Salud Mental",type:"hotline",desc:"Mental health support line Buenos Aires.",contact:"0800-333-1665",hours:"24/7"}]},
+{code:"AM",name:"Armenia",flag:"🇦🇲",crisis:[{name:"Trust Social Work Center",number:"0-800-80-180",hours:"24/7"}],resources:[{name:"Trust Social Work Center",type:"hotline",desc:"Free psychological support and crisis intervention.",contact:"0-800-80-180",hours:"24/7"}]},
+{code:"AU",name:"Australia",flag:"🇦🇺",crisis:[{name:"Lifeline",number:"13 11 14",hours:"24/7"},{name:"Beyond Blue",number:"1300 22 4636",hours:"24/7"}],resources:[{name:"Lifeline",type:"hotline",desc:"Crisis support and suicide prevention.",contact:"13 11 14",hours:"24/7"},{name:"Beyond Blue",type:"hotline",desc:"Anxiety, depression and suicide prevention.",contact:"1300 22 4636",hours:"24/7"},{name:"Kids Helpline",type:"hotline",desc:"Free private counselling for young people 5-25.",contact:"1800 55 1800",hours:"24/7"},{name:"Headspace",type:"online",desc:"Online mental health support for young people.",contact:"headspace.org.au",hours:"Online"},{name:"SANE Australia",type:"hotline",desc:"Support for complex mental health issues.",contact:"1800 187 263",hours:"Mon-Fri 10am-10pm"}]},
+{code:"AT",name:"Austria",flag:"🇦🇹",crisis:[{name:"Telefonseelsorge",number:"142",hours:"24/7"}],resources:[{name:"Telefonseelsorge",type:"hotline",desc:"Free confidential crisis counseling.",contact:"142",hours:"24/7"},{name:"Rat auf Draht",type:"hotline",desc:"Support for children and young people.",contact:"147",hours:"24/7"}]},
+{code:"AZ",name:"Azerbaijan",flag:"🇦🇿",crisis:[{name:"Psychological Crisis Line",number:"861",hours:"24/7"}],resources:[{name:"Psychological Crisis Line",type:"hotline",desc:"National crisis and suicide prevention line.",contact:"861",hours:"24/7"}]},
+{code:"BH",name:"Bahrain",flag:"🇧🇭",crisis:[{name:"Behwith",number:"80008001",hours:"24/7"}],resources:[{name:"Behwith Mental Health",type:"hotline",desc:"Mental health and wellbeing support.",contact:"80008001",hours:"24/7"}]},
+{code:"BD",name:"Bangladesh",flag:"🇧🇩",crisis:[{name:"Kaan Pete Roi",number:"+8801779-554391",hours:"Daily 6pm-10pm"}],resources:[{name:"Kaan Pete Roi",type:"hotline",desc:"Emotional support helpline.",contact:"+8801779-554391",hours:"Daily 6pm-10pm"},{name:"National Mental Health Helpline",type:"hotline",desc:"Government mental health helpline.",contact:"16789",hours:"24/7"}]},
+{code:"BE",name:"Belgium",flag:"🇧🇪",crisis:[{name:"Zelfmoordlijn",number:"0800 32 123",hours:"24/7"}],resources:[{name:"Centre de Prevention du Suicide",type:"hotline",desc:"Free crisis and suicide prevention (French/Dutch).",contact:"0800 32 123",hours:"24/7"},{name:"Tele-Onthaal",type:"hotline",desc:"Emotional support line.",contact:"106",hours:"24/7"}]},
+{code:"BO",name:"Bolivia",flag:"🇧🇴",crisis:[{name:"SOS Voz Amiga",number:"(591 2) 2800300",hours:"Mon-Fri"}],resources:[{name:"SOS Voz Amiga",type:"hotline",desc:"Emotional support and crisis intervention.",contact:"(591 2) 2800300",hours:"Mon-Fri"}]},
+{code:"BA",name:"Bosnia & Herzegovina",flag:"🇧🇦",crisis:[{name:"Plavi Telefon",number:"080 05 03 05",hours:"24/7"}],resources:[{name:"Plavi Telefon",type:"hotline",desc:"Psychological support and crisis line.",contact:"080 05 03 05",hours:"24/7"}]},
+{code:"BW",name:"Botswana",flag:"🇧🇼",crisis:[{name:"Lifeline Botswana",number:"3911270",hours:"Office hours"}],resources:[{name:"Lifeline Botswana",type:"hotline",desc:"Crisis counseling and support.",contact:"3911270",hours:"Office hours"}]},
+{code:"BR",name:"Brazil",flag:"🇧🇷",crisis:[{name:"CVV",number:"188",hours:"24/7"}],resources:[{name:"CVV - Centro de Valorizacao da Vida",type:"hotline",desc:"Free emotional support and suicide prevention.",contact:"188",hours:"24/7"},{name:"CVV Chat",type:"chat",desc:"Online emotional support chat.",contact:"cvv.org.br",hours:"24/7"}]},
+{code:"BG",name:"Bulgaria",flag:"🇧🇬",crisis:[{name:"National Mental Health Line",number:"0800 18 448",hours:"24/7"}],resources:[{name:"National Mental Health Line",type:"hotline",desc:"Free crisis and mental health support.",contact:"0800 18 448",hours:"24/7"},{name:"Child Helpline",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"KH",name:"Cambodia",flag:"🇰🇭",crisis:[{name:"TPO Cambodia",number:"1800 201 986",hours:"Office hours"}],resources:[{name:"TPO Cambodia",type:"hotline",desc:"Trauma and psychological support.",contact:"1800 201 986",hours:"Office hours"}]},
+{code:"CM",name:"Cameroon",flag:"🇨🇲",crisis:[{name:"Ligne Verte",number:"1519",hours:"Office hours"}],resources:[{name:"Ligne Verte",type:"hotline",desc:"Social support and referral line.",contact:"1519",hours:"Office hours"}]},
+{code:"CA",name:"Canada",flag:"🇨🇦",crisis:[{name:"Talk Suicide Canada",number:"1-833-456-4566",hours:"24/7"},{name:"Crisis Text Line",number:"Text HOME to 686868",hours:"24/7"}],resources:[{name:"Talk Suicide Canada",type:"hotline",desc:"Free confidential support for people in crisis.",contact:"1-833-456-4566",hours:"24/7"},{name:"Crisis Text Line Canada",type:"text",desc:"Text with a trained counselor.",contact:"Text HOME to 686868",hours:"24/7"},{name:"Kids Help Phone",type:"hotline",desc:"Support for young people in Canada.",contact:"1-800-668-6868",hours:"24/7"},{name:"Wellness Together Canada",type:"online",desc:"Free mental health support.",contact:"wellnesstogether.ca",hours:"Online"}]},
+{code:"CL",name:"Chile",flag:"🇨🇱",crisis:[{name:"Fono Salud Responde",number:"600 360 7777",hours:"24/7"}],resources:[{name:"Fono Salud Responde",type:"hotline",desc:"National health and mental health line.",contact:"600 360 7777",hours:"24/7"},{name:"Linea Libre",type:"hotline",desc:"Support for children and young people.",contact:"800 200 818",hours:"24/7"}]},
+{code:"CN",name:"China",flag:"🇨🇳",crisis:[{name:"Beijing Crisis Line",number:"010-82951332",hours:"24/7"}],resources:[{name:"Beijing Suicide Research & Prevention Center",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"010-82951332",hours:"24/7"},{name:"Hope 24 Hotline",type:"hotline",desc:"Nationwide mental health support.",contact:"400-161-9995",hours:"24/7"}]},
+{code:"CO",name:"Colombia",flag:"🇨🇴",crisis:[{name:"Linea 106",number:"106",hours:"24/7"}],resources:[{name:"Linea 106 - Salud Mental",type:"hotline",desc:"National mental health crisis line.",contact:"106",hours:"24/7"},{name:"Linea 155",type:"hotline",desc:"Women's support and crisis line.",contact:"155",hours:"24/7"}]},
+{code:"CG",name:"Congo",flag:"🇨🇬",crisis:[{name:"MSF Psychosocial",number:"+242 05 536 1919",hours:"Office hours"}],resources:[{name:"MSF Congo",type:"online",desc:"Psychosocial support services.",contact:"msf.org",hours:"Online"}]},
+{code:"CR",name:"Costa Rica",flag:"🇨🇷",crisis:[{name:"Linea de la Vida",number:"800-VIDA-VIDA",hours:"24/7"}],resources:[{name:"Linea de la Vida Costa Rica",type:"hotline",desc:"Suicide prevention and mental health support.",contact:"800-8432-8432",hours:"24/7"}]},
+{code:"HR",name:"Croatia",flag:"🇭🇷",crisis:[{name:"Plavi Telefon",number:"01 4833 888",hours:"Mon-Fri 8am-8pm"}],resources:[{name:"Plavi Telefon",type:"hotline",desc:"Psychological crisis counseling.",contact:"01 4833 888",hours:"Mon-Fri 8am-8pm"},{name:"Hrabri Telefon",type:"hotline",desc:"Support for children and youth.",contact:"116 111",hours:"24/7"}]},
+{code:"CY",name:"Cyprus",flag:"🇨🇾",crisis:[{name:"Hope Line",number:"1480",hours:"24/7"}],resources:[{name:"Hope Line Cyprus",type:"hotline",desc:"Free crisis and emotional support.",contact:"1480",hours:"24/7"}]},
+{code:"CZ",name:"Czechia",flag:"🇨🇿",crisis:[{name:"Linka bezpeci",number:"116 111",hours:"24/7"}],resources:[{name:"Linka bezpeci",type:"hotline",desc:"Crisis line for children and youth.",contact:"116 111",hours:"24/7"},{name:"Linka duvery",type:"hotline",desc:"Mental health helpline for adults.",contact:"222 580 697",hours:"24/7"}]},
+{code:"DK",name:"Denmark",flag:"🇩🇰",crisis:[{name:"Livslinien",number:"70 201 201",hours:"24/7"}],resources:[{name:"Livslinien",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"70 201 201",hours:"24/7"},{name:"Bornetelefonen",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"Daily 11am-11pm"}]},
+{code:"DO",name:"Dominican Republic",flag:"🇩🇴",crisis:[{name:"Salud Mental",number:"*462",hours:"24/7"}],resources:[{name:"Linea de Salud Mental DR",type:"hotline",desc:"National mental health support.",contact:"*462",hours:"24/7"}]},
+{code:"EC",name:"Ecuador",flag:"🇪🇨",crisis:[{name:"ECU 911",number:"911",hours:"24/7"}],resources:[{name:"ECU 911 Mental Health Referral",type:"hotline",desc:"Emergency and mental health crisis referral.",contact:"911",hours:"24/7"}]},
+{code:"EG",name:"Egypt",flag:"🇪🇬",crisis:[{name:"Nefsy Mental Health",number:"08008880700",hours:"24/7"}],resources:[{name:"Nefsy Mental Health Hotline",type:"hotline",desc:"Free mental health support.",contact:"08008880700",hours:"24/7"}]},
+{code:"SV",name:"El Salvador",flag:"🇸🇻",crisis:[{name:"Linea de Crisis",number:"132",hours:"24/7"}],resources:[{name:"Ministerio de Salud El Salvador",type:"hotline",desc:"National mental health crisis line.",contact:"132",hours:"24/7"}]},
+{code:"EE",name:"Estonia",flag:"🇪🇪",crisis:[{name:"Crisis Line",number:"116 123",hours:"24/7"}],resources:[{name:"Emotional Support Line",type:"hotline",desc:"Free crisis support line.",contact:"116 123",hours:"24/7"},{name:"Children's Helpline",type:"hotline",desc:"Support for children and youth.",contact:"116 111",hours:"24/7"}]},
+{code:"ET",name:"Ethiopia",flag:"🇪🇹",crisis:[{name:"Adera Foundation",number:"+251 116 62 97 14",hours:"Office hours"}],resources:[{name:"Adera Foundation Ethiopia",type:"online",desc:"Mental health NGO providing support resources.",contact:"aderafoundation.org",hours:"Online"}]},
+{code:"FI",name:"Finland",flag:"🇫🇮",crisis:[{name:"MIELI Crisis Line",number:"09 2525 0111",hours:"24/7"}],resources:[{name:"MIELI Crisis Line",type:"hotline",desc:"Free mental health and crisis support.",contact:"09 2525 0111",hours:"24/7"},{name:"Nuorten Exit",type:"chat",desc:"Online crisis chat for young people.",contact:"mieli.fi",hours:"Evenings"}]},
+{code:"FR",name:"France",flag:"🇫🇷",crisis:[{name:"3114 Prevention Suicide",number:"3114",hours:"24/7"}],resources:[{name:"3114 Prevention Suicide",type:"hotline",desc:"National suicide prevention and crisis support.",contact:"3114",hours:"24/7"},{name:"SOS Amitie",type:"hotline",desc:"Listening and emotional support.",contact:"09 72 39 40 50",hours:"24/7"},{name:"Fil Sante Jeunes",type:"hotline",desc:"Free support for young people 12-25.",contact:"0800 235 236",hours:"Daily 9am-11pm"}]},
+{code:"GE",name:"Georgia",flag:"🇬🇪",crisis:[{name:"Mental Health Helpline",number:"0322 15 61 15",hours:"Office hours"}],resources:[{name:"Mental Health Helpline Georgia",type:"hotline",desc:"Mental health information and referrals.",contact:"0322 15 61 15",hours:"Office hours"}]},
+{code:"DE",name:"Germany",flag:"🇩🇪",crisis:[{name:"Telefonseelsorge",number:"0800 111 0 111",hours:"24/7 Free"}],resources:[{name:"Telefonseelsorge",type:"hotline",desc:"Confidential emotional support and crisis counseling.",contact:"0800 111 0 111",hours:"24/7 Free"},{name:"Telefonseelsorge (alt)",type:"hotline",desc:"Alternate free crisis line.",contact:"0800 111 0 222",hours:"24/7 Free"},{name:"Nummer gegen Kummer",type:"hotline",desc:"Support for children, teens and parents.",contact:"116 111",hours:"Mon-Sat 2-8pm"},{name:"Deutsche Depressionshilfe",type:"online",desc:"Information and support for depression.",contact:"deutsche-depressionshilfe.de",hours:"Online"}]},
+{code:"GH",name:"Ghana",flag:"🇬🇭",crisis:[{name:"Mental Health Authority",number:"0800 11 000 11",hours:"Office hours"}],resources:[{name:"Mental Health Authority Ghana",type:"hotline",desc:"National mental health information and support.",contact:"0800 11 000 11",hours:"Office hours"}]},
+{code:"GR",name:"Greece",flag:"🇬🇷",crisis:[{name:"KLIMAKA",number:"10306",hours:"24/7"}],resources:[{name:"KLIMAKA Suicide Prevention",type:"hotline",desc:"National suicide prevention line.",contact:"10306",hours:"24/7"},{name:"SOS Children's Village",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"GT",name:"Guatemala",flag:"🇬🇹",crisis:[{name:"APROFAM",number:"1534",hours:"Office hours"}],resources:[{name:"APROFAM Mental Health",type:"hotline",desc:"Mental health referral and support.",contact:"1534",hours:"Office hours"}]},
+{code:"HN",name:"Honduras",flag:"🇭🇳",crisis:[{name:"Salud Mental Honduras",number:"800-1-0027",hours:"Office hours"}],resources:[{name:"Ministerio de Salud Honduras",type:"hotline",desc:"National mental health line.",contact:"800-1-0027",hours:"Office hours"}]},
+{code:"HK",name:"Hong Kong",flag:"🇭🇰",crisis:[{name:"Samaritans HK",number:"2382 0000",hours:"24/7"}],resources:[{name:"Samaritans Hong Kong",type:"hotline",desc:"24/7 emotional support in Cantonese and English.",contact:"2382 0000",hours:"24/7"},{name:"The Samaritans (English)",type:"hotline",desc:"English language crisis support.",contact:"2389 2222",hours:"24/7"},{name:"MINDSET",type:"online",desc:"Mental health support for adults.",contact:"mindset.org.hk",hours:"Online"}]},
+{code:"HU",name:"Hungary",flag:"🇭🇺",crisis:[{name:"Lelkisegely",number:"116 123",hours:"24/7"}],resources:[{name:"Lelkisegely Telefonszolgalat",type:"hotline",desc:"Free emotional support and crisis intervention.",contact:"116 123",hours:"24/7"},{name:"Kek Vonal",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"IS",name:"Iceland",flag:"🇮🇸",crisis:[{name:"Lifsbjorg",number:"1717",hours:"24/7"}],resources:[{name:"Lifsbjorg",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"1717",hours:"24/7"}]},
+{code:"IN",name:"India",flag:"🇮🇳",crisis:[{name:"iCall",number:"9152987821",hours:"Mon-Sat 8am-10pm"},{name:"Vandrevala Foundation",number:"1860-2662-345",hours:"24/7"}],resources:[{name:"iCall",type:"hotline",desc:"Psychosocial helpline by TISS.",contact:"9152987821",hours:"Mon-Sat 8am-10pm"},{name:"Vandrevala Foundation",type:"hotline",desc:"24/7 mental health helpline across India.",contact:"1860-2662-345",hours:"24/7"},{name:"SNEHI",type:"hotline",desc:"Helpline for emotional support and crisis intervention.",contact:"044-24640050",hours:"Daily 8am-10pm"},{name:"iCall Online",type:"chat",desc:"Online counseling and support.",contact:"icallhelpline.org",hours:"Online"}]},
+{code:"ID",name:"Indonesia",flag:"🇮🇩",crisis:[{name:"Into The Light",number:"119 ext 8",hours:"24/7"}],resources:[{name:"Into The Light Indonesia",type:"hotline",desc:"Suicide prevention and mental health support.",contact:"119 ext 8",hours:"24/7"},{name:"Yayasan Pulih",type:"online",desc:"Psychosocial support organization.",contact:"yayasanpulih.org",hours:"Online"}]},
+{code:"IR",name:"Iran",flag:"🇮🇷",crisis:[{name:"Social Emergency",number:"123",hours:"24/7"}],resources:[{name:"Social Emergency Iran",type:"hotline",desc:"Social and mental health crisis support.",contact:"123",hours:"24/7"}]},
+{code:"IQ",name:"Iraq",flag:"🇮🇶",crisis:[{name:"Ministry of Health",number:"100",hours:"24/7"}],resources:[{name:"Ministry of Health Iraq",type:"hotline",desc:"Medical and mental health emergency line.",contact:"100",hours:"24/7"}]},
+{code:"IE",name:"Ireland",flag:"🇮🇪",crisis:[{name:"Samaritans Ireland",number:"116 123",hours:"24/7"}],resources:[{name:"Samaritans Ireland",type:"hotline",desc:"Free confidential support for anyone in distress.",contact:"116 123",hours:"24/7"},{name:"Pieta House",type:"hotline",desc:"Suicide and self-harm prevention.",contact:"116 123",hours:"24/7"},{name:"Text About It",type:"text",desc:"Crisis text line.",contact:"Text HELLO to 50808",hours:"24/7"}]},
+{code:"IL",name:"Israel",flag:"🇮🇱",crisis:[{name:"ERAN",number:"1201",hours:"24/7"}],resources:[{name:"ERAN Emotional First Aid",type:"hotline",desc:"Emotional support and suicide prevention.",contact:"1201",hours:"24/7"},{name:"NATAL Trauma Helpline",type:"hotline",desc:"Trauma and crisis support.",contact:"1-800-363-363",hours:"24/7"}]},
+{code:"IT",name:"Italy",flag:"🇮🇹",crisis:[{name:"Telefono Amico",number:"02 2327 2327",hours:"Daily 10am-midnight"}],resources:[{name:"Telefono Amico",type:"hotline",desc:"Emotional support and listening service.",contact:"02 2327 2327",hours:"Daily 10am-midnight"},{name:"Telefono Azzurro",type:"hotline",desc:"Support for children and young people.",contact:"19696",hours:"24/7"},{name:"Telefono Amico Chat",type:"chat",desc:"Online emotional support.",contact:"telefonoamico.it",hours:"Online"}]},
+{code:"JM",name:"Jamaica",flag:"🇯🇲",crisis:[{name:"Jamaica Mental Health Advocacy",number:"+1-876-929-7238",hours:"Office hours"}],resources:[{name:"Jamaica Mental Health Advocacy Network",type:"online",desc:"Advocacy and support for mental health.",contact:"jmhan.org",hours:"Online"}]},
+{code:"JP",name:"Japan",flag:"🇯🇵",crisis:[{name:"Inochi no Denwa",number:"0120-783-556",hours:"Daily 16:00-21:00"}],resources:[{name:"Inochi no Denwa",type:"hotline",desc:"Suicide prevention and crisis intervention.",contact:"0120-783-556",hours:"Daily 16:00-21:00"},{name:"Mental Health Consultation",type:"hotline",desc:"Mental health consultation across Japan.",contact:"0570-064-556",hours:"Mon-Fri"},{name:"TELL Lifeline (English)",type:"hotline",desc:"English-language support in Japan.",contact:"03-5774-0992",hours:"Daily 9am-11pm"}]},
+{code:"JO",name:"Jordan",flag:"🇯🇴",crisis:[{name:"Caritas Jordan",number:"110",hours:"Office hours"}],resources:[{name:"Caritas Jordan Mental Health",type:"hotline",desc:"Psychosocial support and counseling.",contact:"110",hours:"Office hours"}]},
+{code:"KZ",name:"Kazakhstan",flag:"🇰🇿",crisis:[{name:"Psychological Helpline",number:"150",hours:"24/7"}],resources:[{name:"National Psychological Helpline",type:"hotline",desc:"Free crisis and emotional support.",contact:"150",hours:"24/7"}]},
+{code:"KE",name:"Kenya",flag:"🇰🇪",crisis:[{name:"Befrienders Kenya",number:"+254 722 178 177",hours:"Daily 9am-9pm"}],resources:[{name:"Befrienders Kenya",type:"hotline",desc:"Emotional support and suicide prevention.",contact:"+254 722 178 177",hours:"Daily 9am-9pm"},{name:"Mathare Hospital",type:"hotline",desc:"Psychiatric emergency support.",contact:"+254 20 2724 340",hours:"24/7"}]},
+{code:"KR",name:"South Korea",flag:"🇰🇷",crisis:[{name:"Korea Suicide Prevention Hotline",number:"1393",hours:"24/7"}],resources:[{name:"Korea Suicide Prevention Hotline",type:"hotline",desc:"National suicide prevention and crisis support.",contact:"1393",hours:"24/7"},{name:"Mental Health Crisis Counseling",type:"hotline",desc:"Psychiatric emergency support.",contact:"1577-0199",hours:"24/7"}]},
+{code:"KW",name:"Kuwait",flag:"🇰🇼",crisis:[{name:"Kuwait Mental Health",number:"94006060",hours:"Office hours"}],resources:[{name:"Kuwait Mental Health Support",type:"hotline",desc:"Mental health counseling and support.",contact:"94006060",hours:"Office hours"}]},
+{code:"KG",name:"Kyrgyzstan",flag:"🇰🇬",crisis:[{name:"Trust Line",number:"0800 833 33",hours:"24/7"}],resources:[{name:"Trust Line Kyrgyzstan",type:"hotline",desc:"Free confidential emotional support.",contact:"0800 833 33",hours:"24/7"}]},
+{code:"LV",name:"Latvia",flag:"🇱🇻",crisis:[{name:"Crisis Line",number:"116 123",hours:"24/7"}],resources:[{name:"Crisis and Consultation Telephone",type:"hotline",desc:"Free mental health crisis support.",contact:"116 123",hours:"24/7"},{name:"Child Helpline",type:"hotline",desc:"Support for children.",contact:"116 111",hours:"24/7"}]},
+{code:"LB",name:"Lebanon",flag:"🇱🇧",crisis:[{name:"Embrace Lebanon",number:"1564",hours:"24/7"}],resources:[{name:"Embrace Lebanon",type:"hotline",desc:"Suicide prevention and mental health support.",contact:"1564",hours:"24/7"},{name:"Skoun",type:"online",desc:"Addiction and mental health support.",contact:"skoun.org",hours:"Online"}]},
+{code:"LT",name:"Lithuania",flag:"🇱🇹",crisis:[{name:"Vilties linija",number:"116 123",hours:"24/7"}],resources:[{name:"Vaikų linija",type:"hotline",desc:"Children's helpline.",contact:"116 111",hours:"24/7"},{name:"Vilties linija",type:"hotline",desc:"Crisis support for adults.",contact:"116 123",hours:"24/7"}]},
+{code:"LU",name:"Luxembourg",flag:"🇱🇺",crisis:[{name:"SOS Detresse",number:"454545",hours:"24/7"}],resources:[{name:"SOS Detresse",type:"hotline",desc:"Crisis intervention and emotional support.",contact:"454545",hours:"24/7"}]},
+{code:"MK",name:"North Macedonia",flag:"🇲🇰",crisis:[{name:"Safe Line",number:"0800 1 2345",hours:"24/7"}],resources:[{name:"Safe Line Macedonia",type:"hotline",desc:"Free crisis and emotional support.",contact:"0800 1 2345",hours:"24/7"}]},
+{code:"MY",name:"Malaysia",flag:"🇲🇾",crisis:[{name:"Befrienders KL",number:"03-76272929",hours:"24/7"}],resources:[{name:"Befrienders Kuala Lumpur",type:"hotline",desc:"Emotional support and crisis intervention.",contact:"03-76272929",hours:"24/7"},{name:"Mental Health Psychosocial Support",type:"hotline",desc:"Government mental health line.",contact:"03-2935 9935",hours:"Office hours"}]},
+{code:"MV",name:"Maldives",flag:"🇲🇻",crisis:[{name:"IMHA Mental Health",number:"1400",hours:"Office hours"}],resources:[{name:"IMHA Mental Health Hotline",type:"hotline",desc:"Mental health support in the Maldives.",contact:"1400",hours:"Office hours"}]},
+{code:"MT",name:"Malta",flag:"🇲🇹",crisis:[{name:"Appogg Helpline",number:"179",hours:"24/7"}],resources:[{name:"Appogg Helpline Malta",type:"hotline",desc:"Free social welfare and crisis support.",contact:"179",hours:"24/7"}]},
+{code:"MX",name:"Mexico",flag:"🇲🇽",crisis:[{name:"SAPTEL",number:"55 5259-8121",hours:"24/7"}],resources:[{name:"SAPTEL",type:"hotline",desc:"Crisis intervention and emotional support.",contact:"55 5259-8121",hours:"24/7"},{name:"CONASAMA Linea de la Vida",type:"hotline",desc:"National mental health and addiction helpline.",contact:"800 911 2000",hours:"24/7"}]},
+{code:"MD",name:"Moldova",flag:"🇲🇩",crisis:[{name:"Trust Line",number:"0 8008 1616",hours:"24/7"}],resources:[{name:"Trust Line Moldova",type:"hotline",desc:"Free psychological support and crisis intervention.",contact:"0 8008 1616",hours:"24/7"}]},
+{code:"MN",name:"Mongolia",flag:"🇲🇳",crisis:[{name:"Mental Health Center",number:"70110808",hours:"Office hours"}],resources:[{name:"Mongolia Mental Health Center",type:"hotline",desc:"Mental health information and referrals.",contact:"70110808",hours:"Office hours"}]},
+{code:"MA",name:"Morocco",flag:"🇲🇦",crisis:[{name:"SAMU Social",number:"080 100 9090",hours:"24/7"}],resources:[{name:"SAMU Social Morocco",type:"hotline",desc:"Social emergency and crisis support.",contact:"080 100 9090",hours:"24/7"}]},
+{code:"MZ",name:"Mozambique",flag:"🇲🇿",crisis:[{name:"SOS Crianca",number:"116",hours:"24/7"}],resources:[{name:"SOS Crianca Mozambique",type:"hotline",desc:"Child and youth crisis support.",contact:"116",hours:"24/7"}]},
+{code:"MM",name:"Myanmar",flag:"🇲🇲",crisis:[{name:"Thabyay Foundation",number:"+95 1 391 386",hours:"Office hours"}],resources:[{name:"Thabyay Education Foundation",type:"online",desc:"Mental health support and training in Myanmar.",contact:"thabyay.org",hours:"Online"}]},
+{code:"NA",name:"Namibia",flag:"🇳🇦",crisis:[{name:"LifeLine Namibia",number:"106",hours:"24/7"}],resources:[{name:"LifeLine/ChildLine Namibia",type:"hotline",desc:"Crisis support and counseling.",contact:"106",hours:"24/7"}]},
+{code:"NP",name:"Nepal",flag:"🇳🇵",crisis:[{name:"TPO Nepal",number:"+977-1-4460737",hours:"Office hours"}],resources:[{name:"TPO Nepal",type:"hotline",desc:"Psychosocial support across Nepal.",contact:"+977-1-4460737",hours:"Office hours"}]},
+{code:"NL",name:"Netherlands",flag:"🇳🇱",crisis:[{name:"113 Zelfmoordpreventie",number:"113",hours:"24/7"}],resources:[{name:"113 Zelfmoordpreventie",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"113",hours:"24/7"},{name:"De Luisterlijn",type:"hotline",desc:"Anonymous emotional support.",contact:"0900 0767",hours:"24/7"}]},
+{code:"NZ",name:"New Zealand",flag:"🇳🇿",crisis:[{name:"Lifeline NZ",number:"0800 543 354",hours:"24/7"}],resources:[{name:"Lifeline Aotearoa",type:"hotline",desc:"Crisis support and suicide prevention.",contact:"0800 543 354",hours:"24/7"},{name:"Need to Talk?",type:"hotline",desc:"Free mental health support from professionals.",contact:"1737",hours:"24/7"},{name:"Youthline",type:"hotline",desc:"Support for young people in New Zealand.",contact:"0800 376 633",hours:"24/7"}]},
+{code:"NI",name:"Nicaragua",flag:"🇳🇮",crisis:[{name:"MINSA",number:"1315",hours:"Office hours"}],resources:[{name:"MINSA Salud Mental Nicaragua",type:"hotline",desc:"National mental health support line.",contact:"1315",hours:"Office hours"}]},
+{code:"NG",name:"Nigeria",flag:"🇳🇬",crisis:[{name:"MANI Helpline",number:"+234 809 210 6493",hours:"Daily 8am-midnight"}],resources:[{name:"MANI Helpline",type:"hotline",desc:"Mental health support across Nigeria.",contact:"+234 809 210 6493",hours:"Daily 8am-midnight"},{name:"SURPIN",type:"online",desc:"Suicide research and prevention in Nigeria.",contact:"slink.ng",hours:"Online"}]},
+{code:"NO",name:"Norway",flag:"🇳🇴",crisis:[{name:"Mental Helse",number:"116 123",hours:"24/7"}],resources:[{name:"Mental Helse Hjelpetelefonen",type:"hotline",desc:"Free anonymous mental health support.",contact:"116 123",hours:"24/7"},{name:"Kirkens SOS",type:"hotline",desc:"Crisis support open to all.",contact:"22 40 00 40",hours:"24/7"},{name:"Kors pa halsen",type:"chat",desc:"Online support for children and young people.",contact:"korspahalsen.no",hours:"Daily 14:00-22:00"}]},
+{code:"OM",name:"Oman",flag:"🇴🇲",crisis:[{name:"Ministry of Health",number:"24602777",hours:"Office hours"}],resources:[{name:"Ministry of Health Oman",type:"hotline",desc:"Mental health and medical helpline.",contact:"24602777",hours:"Office hours"}]},
+{code:"PK",name:"Pakistan",flag:"🇵🇰",crisis:[{name:"Umang Helpline",number:"0311-7786264",hours:"Daily 1pm-11pm"}],resources:[{name:"Umang Pakistan",type:"hotline",desc:"Mental health support helpline.",contact:"0311-7786264",hours:"Daily 1pm-11pm"},{name:"Rozan Counseling Center",type:"online",desc:"Psychosocial support and counseling.",contact:"rozan.org",hours:"Online"}]},
+{code:"PA",name:"Panama",flag:"🇵🇦",crisis:[{name:"MINSA",number:"169",hours:"24/7"}],resources:[{name:"MINSA Panama Mental Health",type:"hotline",desc:"National mental health hotline.",contact:"169",hours:"24/7"}]},
+{code:"PY",name:"Paraguay",flag:"🇵🇾",crisis:[{name:"Ministerio de Salud",number:"147",hours:"Office hours"}],resources:[{name:"Ministerio de Salud Paraguay",type:"hotline",desc:"National mental health support.",contact:"147",hours:"Office hours"}]},
+{code:"PE",name:"Peru",flag:"🇵🇪",crisis:[{name:"Linea 113",number:"113",hours:"24/7"}],resources:[{name:"Linea 113 Salud Mental",type:"hotline",desc:"National health crisis line with mental health support.",contact:"113",hours:"24/7"},{name:"SISOL Salud",type:"hotline",desc:"Lima mental health services.",contact:"584-5050",hours:"Office hours"}]},
+{code:"PH",name:"Philippines",flag:"🇵🇭",crisis:[{name:"Hopeline Philippines",number:"(02) 8804-4673",hours:"24/7"}],resources:[{name:"Hopeline Philippines",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"(02) 8804-4673",hours:"24/7"},{name:"In Touch Crisis Line",type:"hotline",desc:"Multilingual crisis support.",contact:"(02) 8893-7603",hours:"24/7"}]},
+{code:"PL",name:"Poland",flag:"🇵🇱",crisis:[{name:"Telefon Zaufania",number:"116 123",hours:"24/7"}],resources:[{name:"Telefon Zaufania dla Doroslych",type:"hotline",desc:"Crisis and emotional support for adults.",contact:"116 123",hours:"24/7"},{name:"Telefon Zaufania dla Dzieci",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"PT",name:"Portugal",flag:"🇵🇹",crisis:[{name:"SOS Voz Amiga",number:"213 544 545",hours:"Daily 4pm-midnight"}],resources:[{name:"SOS Voz Amiga",type:"hotline",desc:"Emotional support and suicide prevention.",contact:"213 544 545",hours:"Daily 4pm-midnight"},{name:"Linha SNS 24",type:"hotline",desc:"National health line including mental health.",contact:"808 24 24 24",hours:"24/7"}]},
+{code:"QA",name:"Qatar",flag:"🇶🇦",crisis:[{name:"Hamad Mental Health",number:"44399444",hours:"24/7"}],resources:[{name:"Hamad Medical Corporation Psychiatry",type:"hotline",desc:"Mental health emergency support.",contact:"44399444",hours:"24/7"}]},
+{code:"RO",name:"Romania",flag:"🇷🇴",crisis:[{name:"Telefonul Copilului",number:"116 111",hours:"24/7"}],resources:[{name:"Telefonul Copilului",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"},{name:"Antisuicid.ro",type:"hotline",desc:"Suicide prevention helpline.",contact:"0800 801 200",hours:"Daily 8am-8pm"}]},
+{code:"RU",name:"Russia",flag:"🇷🇺",crisis:[{name:"Telephone of Trust",number:"8-800-2000-122",hours:"24/7 Free"}],resources:[{name:"All-Russian Telephone of Trust",type:"hotline",desc:"Free anonymous psychological support.",contact:"8-800-2000-122",hours:"24/7 Free"},{name:"Moscow Crisis Helpline",type:"hotline",desc:"Crisis support in Moscow.",contact:"8-800-100-49-94",hours:"24/7"}]},
+{code:"RW",name:"Rwanda",flag:"🇷🇼",crisis:[{name:"Isange One Stop Center",number:"3029",hours:"24/7"}],resources:[{name:"Isange One Stop Center Rwanda",type:"hotline",desc:"Crisis support including mental health.",contact:"3029",hours:"24/7"}]},
+{code:"SA",name:"Saudi Arabia",flag:"🇸🇦",crisis:[{name:"Mental Health Crisis Line",number:"920033360",hours:"24/7"}],resources:[{name:"Saudi Mental Health Crisis Line",type:"hotline",desc:"National mental health and crisis support.",contact:"920033360",hours:"24/7"}]},
+{code:"SN",name:"Senegal",flag:"🇸🇳",crisis:[{name:"Numero Vert Sante",number:"1515",hours:"Office hours"}],resources:[{name:"Numero Vert Sante Senegal",type:"hotline",desc:"National health and mental health helpline.",contact:"1515",hours:"Office hours"}]},
+{code:"RS",name:"Serbia",flag:"🇷🇸",crisis:[{name:"Centar Srce",number:"0800 300 303",hours:"24/7"}],resources:[{name:"Centar Srce",type:"hotline",desc:"Emotional support and suicide prevention.",contact:"0800 300 303",hours:"24/7"},{name:"Plavi Telefon",type:"hotline",desc:"Support for children and youth.",contact:"0800 200 201",hours:"Daily 14:00-20:00"}]},
+{code:"SG",name:"Singapore",flag:"🇸🇬",crisis:[{name:"SOS Singapore",number:"1-767",hours:"24/7"}],resources:[{name:"Samaritans of Singapore (SOS)",type:"hotline",desc:"Crisis intervention and suicide prevention.",contact:"1-767",hours:"24/7"},{name:"IMH Mental Health Helpline",type:"hotline",desc:"Institute of Mental Health helpline.",contact:"6389 2222",hours:"24/7"}]},
+{code:"SK",name:"Slovakia",flag:"🇸🇰",crisis:[{name:"Linka Pomoci",number:"0800 500 333",hours:"24/7"}],resources:[{name:"Linka Pomoci",type:"hotline",desc:"Crisis support and suicide prevention.",contact:"0800 500 333",hours:"24/7"},{name:"Linka Detskej Istoty",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"SI",name:"Slovenia",flag:"🇸🇮",crisis:[{name:"Zaupna Telefon Samarijan",number:"116 123",hours:"24/7"}],resources:[{name:"Zaupna Telefon Samarijan",type:"hotline",desc:"Emotional support and crisis line.",contact:"116 123",hours:"24/7"},{name:"TOM Telefon",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"Daily 12:00-20:00"}]},
+{code:"SO",name:"Somalia",flag:"🇸🇴",crisis:[{name:"SOYDA",number:"+252 615 500 500",hours:"Office hours"}],resources:[{name:"SOYDA Somalia",type:"online",desc:"Psychosocial support in Somalia.",contact:"soyda.net",hours:"Online"}]},
+{code:"ZA",name:"South Africa",flag:"🇿🇦",crisis:[{name:"SADAG",number:"0800 567 567",hours:"24/7"}],resources:[{name:"SADAG Crisis Line",type:"hotline",desc:"Mental health support across South Africa.",contact:"0800 567 567",hours:"24/7"},{name:"Suicide Crisis Line",type:"hotline",desc:"Immediate crisis support.",contact:"0800 12 13 14",hours:"24/7"},{name:"Childline SA",type:"hotline",desc:"Support for children and young people.",contact:"116",hours:"24/7"}]},
+{code:"SS",name:"South Sudan",flag:"🇸🇸",crisis:[{name:"MSF Psychosocial",number:"+211 92 301 3000",hours:"Office hours"}],resources:[{name:"MSF South Sudan",type:"online",desc:"Medecins Sans Frontieres psychosocial support.",contact:"msf.org",hours:"Online"}]},
+{code:"ES",name:"Spain",flag:"🇪🇸",crisis:[{name:"Telefono de la Esperanza",number:"717 003 717",hours:"24/7"}],resources:[{name:"Telefono de la Esperanza",type:"hotline",desc:"Crisis intervention and emotional support.",contact:"717 003 717",hours:"24/7"},{name:"ACIS Telefono de la Esperanza",type:"hotline",desc:"Suicide prevention support.",contact:"900 20 20 10",hours:"24/7"}]},
+{code:"LK",name:"Sri Lanka",flag:"🇱🇰",crisis:[{name:"CCCline",number:"1333",hours:"24/7"}],resources:[{name:"CCCline Sri Lanka",type:"hotline",desc:"Crisis and emotional support.",contact:"1333",hours:"24/7"},{name:"Sumithrayo",type:"hotline",desc:"Suicide prevention and befriending.",contact:"011 269 6666",hours:"Daily 9am-9pm"}]},
+{code:"SD",name:"Sudan",flag:"🇸🇩",crisis:[{name:"Sudan Mental Health",number:"1515",hours:"Office hours"}],resources:[{name:"Sudan Mental Health Society",type:"online",desc:"Mental health resources and support.",contact:"1515",hours:"Office hours"}]},
+{code:"SE",name:"Sweden",flag:"🇸🇪",crisis:[{name:"Mind Sjalvmordslinjen",number:"90101",hours:"24/7"}],resources:[{name:"Mind Sjalvmordslinjen",type:"hotline",desc:"Crisis support and suicide prevention.",contact:"90101",hours:"24/7"},{name:"Mind Chat",type:"chat",desc:"Online chat support.",contact:"mind.se",hours:"Daily 6pm-midnight"},{name:"Bris",type:"hotline",desc:"Support for children and young people.",contact:"116 111",hours:"24/7"}]},
+{code:"CH",name:"Switzerland",flag:"🇨🇭",crisis:[{name:"Die Dargebotene Hand",number:"143",hours:"24/7"}],resources:[{name:"Die Dargebotene Hand (German)",type:"hotline",desc:"Emotional support and crisis line.",contact:"143",hours:"24/7"},{name:"La Main Tendue (French)",type:"hotline",desc:"Emotional support.",contact:"143",hours:"24/7"},{name:"Il Telefono Amico (Italian)",type:"hotline",desc:"Emotional support.",contact:"143",hours:"24/7"}]},
+{code:"SY",name:"Syria",flag:"🇸🇾",crisis:[{name:"UNHCR Syria",number:"+963 11 332 0270",hours:"Office hours"}],resources:[{name:"UNHCR Syria Psychosocial Support",type:"online",desc:"Refugee and crisis psychosocial support.",contact:"unhcr.org/syria",hours:"Online"}]},
+{code:"TW",name:"Taiwan",flag:"🇹🇼",crisis:[{name:"1925 Suicide Prevention",number:"1925",hours:"24/7"}],resources:[{name:"1925 Suicide Prevention Line",type:"hotline",desc:"National suicide prevention and crisis support.",contact:"1925",hours:"24/7"},{name:"Garden of Hope",type:"hotline",desc:"Support for survivors of domestic violence.",contact:"1800",hours:"24/7"}]},
+{code:"TJ",name:"Tajikistan",flag:"🇹🇯",crisis:[{name:"Trust Line",number:"0800-1-8080",hours:"24/7"}],resources:[{name:"Trust Line Tajikistan",type:"hotline",desc:"Free psychological support and crisis line.",contact:"0800-1-8080",hours:"24/7"}]},
+{code:"TZ",name:"Tanzania",flag:"🇹🇿",crisis:[{name:"Befrienders Tanzania",number:"+255 22 2137378",hours:"Office hours"}],resources:[{name:"Befrienders Tanzania",type:"hotline",desc:"Emotional support and suicide prevention.",contact:"+255 22 2137378",hours:"Office hours"}]},
+{code:"TH",name:"Thailand",flag:"🇹🇭",crisis:[{name:"Department of Mental Health",number:"1323",hours:"24/7"}],resources:[{name:"Department of Mental Health Hotline",type:"hotline",desc:"National mental health crisis line.",contact:"1323",hours:"24/7"},{name:"Samaritans of Thailand",type:"hotline",desc:"English language crisis support.",contact:"02-713-6793",hours:"Daily 12:00-22:00"}]},
+{code:"TN",name:"Tunisia",flag:"🇹🇳",crisis:[{name:"SOS Amitie Tunisie",number:"71 285 100",hours:"Daily 5pm-10pm"}],resources:[{name:"SOS Amitie Tunisie",type:"hotline",desc:"Emotional support and crisis intervention.",contact:"71 285 100",hours:"Daily 5pm-10pm"}]},
+{code:"TR",name:"Turkey",flag:"🇹🇷",crisis:[{name:"Mental Health Helpline",number:"182",hours:"24/7"}],resources:[{name:"Turkey Mental Health Line",type:"hotline",desc:"National mental health crisis support.",contact:"182",hours:"24/7"},{name:"ALO 183",type:"hotline",desc:"Social services and women's support line.",contact:"183",hours:"24/7"}]},
+{code:"UG",name:"Uganda",flag:"🇺🇬",crisis:[{name:"Butabika Hospital",number:"+256 414 505 600",hours:"24/7"}],resources:[{name:"Butabika National Referral Hospital",type:"hotline",desc:"Psychiatric emergency support.",contact:"+256 414 505 600",hours:"24/7"}]},
+{code:"UA",name:"Ukraine",flag:"🇺🇦",crisis:[{name:"Crisis Line",number:"7333",hours:"24/7"}],resources:[{name:"Psychological Crisis Line Ukraine",type:"hotline",desc:"Free mental health crisis support.",contact:"7333",hours:"24/7"},{name:"Lifeline Ukraine",type:"hotline",desc:"Suicide prevention and crisis support.",contact:"7333",hours:"24/7"}]},
+{code:"AE",name:"United Arab Emirates",flag:"🇦🇪",crisis:[{name:"National Crisis Line",number:"920033360",hours:"24/7"}],resources:[{name:"National Crisis & Emergency Line",type:"hotline",desc:"Mental health crisis support.",contact:"920033360",hours:"24/7"},{name:"Tawasul Mental Health",type:"online",desc:"Mental health resources in the UAE.",contact:"moh.gov.ae",hours:"Online"}]},
+{code:"GB",name:"United Kingdom",flag:"🇬🇧",crisis:[{name:"Samaritans",number:"116 123",hours:"24/7"},{name:"Shout 85258",number:"Text SHOUT to 85258",hours:"24/7"}],resources:[{name:"Samaritans",type:"hotline",desc:"Confidential support for anyone in emotional distress.",contact:"116 123",hours:"24/7"},{name:"Shout 85258",type:"text",desc:"Free confidential crisis text line.",contact:"Text SHOUT to 85258",hours:"24/7"},{name:"Mind Infoline",type:"hotline",desc:"Mental health information and support.",contact:"0300 123 3393",hours:"Mon-Fri 9am-6pm"},{name:"PAPYRUS HOPELINEUK",type:"hotline",desc:"Suicide prevention for young people under 35.",contact:"0800 068 4141",hours:"Daily 9am-midnight"},{name:"NHS 111",type:"hotline",desc:"Urgent medical and mental health support.",contact:"111",hours:"24/7"}]},
+{code:"US",name:"United States",flag:"🇺🇸",crisis:[{name:"988 Suicide & Crisis Lifeline",number:"988",hours:"24/7"},{name:"Crisis Text Line",number:"Text HOME to 741741",hours:"24/7"}],resources:[{name:"988 Suicide & Crisis Lifeline",type:"hotline",desc:"Call or text 988 for free confidential support.",contact:"988",hours:"24/7"},{name:"Crisis Text Line",type:"text",desc:"Text with a trained crisis counselor.",contact:"Text HOME to 741741",hours:"24/7"},{name:"NAMI Helpline",type:"hotline",desc:"Information and support for mental illness.",contact:"1-800-950-6264",hours:"Mon-Fri 10am-10pm ET"},{name:"SAMHSA Helpline",type:"hotline",desc:"Treatment referral for substance use and mental health.",contact:"1-800-662-4357",hours:"24/7"},{name:"Trevor Project",type:"hotline",desc:"Crisis intervention for LGBTQ+ youth.",contact:"1-866-488-7386",hours:"24/7"},{name:"Veterans Crisis Line",type:"hotline",desc:"Support for US military veterans.",contact:"988 then press 1",hours:"24/7"}]},
+{code:"UY",name:"Uruguay",flag:"🇺🇾",crisis:[{name:"SEC Uruguay",number:"0800 0767",hours:"24/7"}],resources:[{name:"SEC Uruguay",type:"hotline",desc:"Free crisis and suicide prevention support.",contact:"0800 0767",hours:"24/7"}]},
+{code:"UZ",name:"Uzbekistan",flag:"🇺🇿",crisis:[{name:"Trust Phone",number:"1158",hours:"24/7"}],resources:[{name:"Trust Phone Uzbekistan",type:"hotline",desc:"Free anonymous psychological support.",contact:"1158",hours:"24/7"}]},
+{code:"VE",name:"Venezuela",flag:"🇻🇪",crisis:[{name:"AVESOL",number:"+58 212 762-2998",hours:"Office hours"}],resources:[{name:"AVESOL Venezuela",type:"hotline",desc:"Suicide prevention and emotional support.",contact:"+58 212 762-2998",hours:"Office hours"}]},
+{code:"VN",name:"Vietnam",flag:"🇻🇳",crisis:[{name:"Mental Health Helpline",number:"1800 599 920",hours:"24/7 Free"}],resources:[{name:"National Mental Health Helpline",type:"hotline",desc:"Free national mental health support.",contact:"1800 599 920",hours:"24/7 Free"},{name:"Ngay Mai",type:"online",desc:"Online mental health resources.",contact:"ngaymai.vn",hours:"Online"}]},
+{code:"YE",name:"Yemen",flag:"🇾🇪",crisis:[{name:"WHO Yemen",number:"+967 1 274 371",hours:"Office hours"}],resources:[{name:"WHO Mental Health Support Yemen",type:"online",desc:"WHO-supported mental health resources.",contact:"who.int/yemen",hours:"Online"}]},
+{code:"ZM",name:"Zambia",flag:"🇿🇲",crisis:[{name:"Lifeline Zambia",number:"116",hours:"24/7"}],resources:[{name:"Lifeline Zambia",type:"hotline",desc:"Crisis support and counseling.",contact:"116",hours:"24/7"}]},
+{code:"ZW",name:"Zimbabwe",flag:"🇿🇼",crisis:[{name:"ZIBHAWU",number:"+263 4 732 984",hours:"Office hours"}],resources:[{name:"ZIBHAWU",type:"hotline",desc:"Mental health awareness and support.",contact:"+263 4 732 984",hours:"Office hours"},{name:"Lifeline Zimbabwe",type:"hotline",desc:"Crisis support line.",contact:"+263 4 728 133",hours:"Office hours"}]}
+];
+
+const sel=document.getElementById('countrySelect');
+[...countries].sort((a,b)=>a.name.localeCompare(b.name)).forEach(c=>{
+  const o=document.createElement('option');
+  o.value=c.code;
+  o.textContent=c.flag+' '+c.name;
+  sel.appendChild(o);
+});
+
+function showResources(){
+  const code=document.getElementById('countrySelect').value;
+  const lang=document.getElementById('langSelect').value;
+  const el=document.getElementById('results');
+  if(!code){el.innerHTML='';return;}
+  const country=countries.find(c=>c.code===code);
+  if(!country)return;
+  const ct=crisisText[lang]||crisisText['en'];
+  const nums=country.crisis.map(c=>`<div class="crisis-num"><strong>${c.number}</strong><span>${c.name} &middot; ${c.hours}</span></div>`).join('');
+  const cards=country.resources.map(r=>`<div class="resource-card"><span class="resource-type type-${r.type}">${r.type}</span><h4>${r.name}</h4><p>${r.desc}</p><div class="resource-contact">${r.contact}</div><div class="resource-hours">Available: ${r.hours}</div></div>`).join('');
+  el.innerHTML=`
+  <div class="country-header">
+    <div class="country-flag">${country.flag}</div>
+    <div><div class="country-name">${country.name}<span>${country.resources.length} support service${country.resources.length!==1?'s':''} found</span></div></div>
+  </div>
+  <div class="crisis-banner">
+    <div class="crisis-icon">🆘</div>
+    <div>
+      <h3>${ct.title}</h3>
+      <p>${ct.body}</p>
+      <div class="crisis-numbers">${nums}</div>
+    </div>
+  </div>
+  <div class="section-label" style="margin-bottom:16px">Support services available to you</div>
+  <div class="resources-grid">${cards}</div>`;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
